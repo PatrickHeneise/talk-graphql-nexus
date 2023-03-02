@@ -1,0 +1,59 @@
+{
+  "name": "talk-graphql",
+  "version": "1.0.0",
+  "description": "GraphQL Schemas with Nexus",
+  "main": "app.js",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/PatrickHeneise/talk-graphql-nexus/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:PatrickHeneise/talk-graphql-nexus.git"
+  },
+  "scripts": {
+    "dev": "nodemon -r dotenv/config app.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prisma:init": "run-s prisma:generate prisma:reset prisma:seed",
+    "prisma:reset": "prisma db push --force-reset",
+    "prisma:generate": "prisma generate",
+    "prisma:seed": "prisma db seed"
+  },
+  "keywords": [],
+  "author": "Patrick Heneise <hi@zentered.co> (https://zentered.co)",
+  "contributors": [
+    "Patrick Heneise (https://github.com/PatrickHeneise)"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@prisma/client": "^4.11.0",
+    "@tdengine/rest": "^3.0.2",
+    "fastify": "^4.13.0",
+    "fastify-plugin": "^4.5.0",
+    "graphql": "^16.6.0",
+    "jsonwebtoken": "^9.0.0",
+    "mercurius": "^12.2.0",
+    "mercurius-explain": "^2.0.0",
+    "nexus": "^1.3.0",
+    "prisma": "^4.11.0",
+    "tiny-invariant": "^1.3.1"
+  },
+  "devDependencies": {
+    "dotenv": "^16.0.3",
+    "eslint": "^8.35.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-json": "^3.1.0",
+    "eslint-plugin-markdown": "^3.0.0",
+    "eslint-plugin-node": "^11.1.0",
+    "nodemon": "^2.0.20",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.8.4"
+  },
+  "engines": {
+    "node": ">=18",
+    "pnpm": "^7"
+  },
+  "prisma": {
+    "seed": "node -r dotenv/config prisma/seed/index.js"
+  }
+}

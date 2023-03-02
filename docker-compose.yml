@@ -1,0 +1,40 @@
+version: '3'
+services:
+  tdengine:
+    restart: always
+    image: tdengine/tdengine:latest
+    hostname: tdengine
+    container_name: tdengine
+    ports:
+      - 6030:6030
+      - 6041:6041
+      - 6043-6049:6043-6049
+      - 6043-6049:6043-6049/udp
+    volumes:
+      - ./tmp/tdengine/data:/var/lib/taos
+      - ./tmp/tdengine/etc:/etc/taos
+      - ./tmp/tdengine/log:/var/log/taos
+
+  pg:
+    container_name: graphql-db
+    image: postgres:15
+    restart: 'always'
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_USER=graphql
+      - POSTGRES_PASSWORD=graphql
+      - POSTGRES_DB=graphql
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U graphql -D graphql']
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  telegraf:
+    # platform: linux/amd64
+    image: telegraf
+    links:
+      - tdengine
+    volumes:
+      - $PWD/telegraf.conf:/etc/telegraf/telegraf.conf:ro
